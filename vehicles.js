@@ -12,11 +12,12 @@ const RETRY_DELAY = 1000;
 
 // EmailJS configuration
 const EMAIL_SERVICE_ID = 'service_2pmrqw8';
-const EMAIL_TEMPLATE_ID = 'template_3rc1zwq';
+const EMAIL_TEMPLATE_ID = 'template_c041qjl';
 const RECIPIENT_EMAIL = 'bransonallan@gmail.com';
 
 // UI Elements
-const exportButton = document.getElementById('exportButton');
+const emailButton = document.getElementById('emailButton');
+const downloadButton = document.getElementById('downloadButton');
 const progressContainer = document.getElementById('progressContainer');
 const progressBar = document.getElementById('progressFill');
 const progressText = document.getElementById('progressText');
@@ -137,9 +138,25 @@ async function sendEmail(csvContent) {
     }
 }
 
+// Download CSV
+function downloadCSV(csvContent) {
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    if (link.download !== undefined) {
+        const url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", "vehicle_data.csv");
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+}
+
 // Main export function
-async function exportCSV() {
-    exportButton.disabled = true;
+async function exportData(exportType) {
+    emailButton.disabled = true;
+    downloadButton.disabled = true;
     progressContainer.classList.remove('hidden');
     resultContainer.classList.add('hidden');
     
@@ -149,15 +166,22 @@ async function exportCSV() {
 
         const csvContent = generateCSV(allData);
         
-        await sendEmail(csvContent);
-        showResult(true, `Export successful. ${allData.length} records sent to ${RECIPIENT_EMAIL}`);
+        if (exportType === 'email') {
+            await sendEmail(csvContent);
+            showResult(true, `Export successful. ${allData.length} records sent to ${RECIPIENT_EMAIL}`);
+        } else if (exportType === 'download') {
+            downloadCSV(csvContent);
+            showResult(true, `Export successful. ${allData.length} records downloaded.`);
+        }
     } catch (error) {
         console.error('Error during export:', error);
         showResult(false, `Export failed: ${error.message}`);
     }
 
-    exportButton.disabled = false;
+    emailButton.disabled = false;
+    downloadButton.disabled = false;
 }
 
-// Set up event listener
-exportButton.addEventListener('click', exportCSV);
+// Set up event listeners
+emailButton.addEventListener('click', () => exportData('email'));
+downloadButton.addEventListener('click', () => exportData('download'));
