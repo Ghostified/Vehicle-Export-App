@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vehicle Data Exporter</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Vehicle Data Exporter</h1>
+    <button id="exportButton">Export Data</button>
+    <div id="progressContainer" class="hidden">
+      <h2>Export Progress</h2>
+      <div id="progressBar">
+        <div id="progressFill"></div>
+      </div>
+      <p id="progressText">0% Complete</p>
+      <p id="totalRecords">Total Records: 0</p>
+    </div>
+    <div id="resultContainer" class="hidden">
+      <h2 id="resultTitle"></h2>
+      <p id="resultMessage"></p>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+  </script>
+  <script type="text/javascript">
+    (function () {
+      emailjs.init({
+        publicKey: "EevX8WfcudHu9GwPh",
+      });
+    })();
+  </script>
+  <script src="vehicles.js"></script>
+</body>
+
+</html>
