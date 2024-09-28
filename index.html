@@ -4,37 +4,95 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vehicle Data Exporter</title>
+  <title>Vehicle Data Exporter Pro</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
-  <div class="container">
-    <h1>Vehicle Data Exporter</h1>
-    <button id="exportButton">Export Data</button>
-    <div id="progressContainer" class="hidden">
-      <h2>Export Progress</h2>
-      <div id="progressBar">
-        <div id="progressFill"></div>
+  <div class="app-container">
+    <header class="glass-morphism">
+      <h1>
+        <span class="title-animation">Vehicle</span>
+        <span class="title-animation">Data</span>
+        <span class="title-animation">Exporter</span>
+        <span class="title-animation pro">Pro</span>
+      </h1>
+      <div class="theme-toggle">
+        <input type="checkbox" id="theme-switch" class="theme-switch">
+        <label for="theme-switch" class="theme-switch-label">
+          <i class="fas fa-sun"></i>
+          <i class="fas fa-moon"></i>
+          <span class="switch-handle"></span>
+        </label>
       </div>
-      <p id="progressText">0% Complete</p>
-      <p id="totalRecords">Total Records: 0</p>
-    </div>
-    <div id="resultContainer" class="hidden">
-      <h2 id="resultTitle"></h2>
-      <p id="resultMessage"></p>
-    </div>
+    </header>
+
+    <main>
+      <section class="filter-section glass-morphism">
+        <h2>Select Your Ride</h2>
+        <div class="filter-container">
+          <div class="select-wrapper">
+            <label for="makeSelect">Make:</label>
+            <select id="makeSelect" class="fancy-select">
+              <option value="">-- Select Make --</option>
+            </select>
+          </div>
+          <div class="select-wrapper">
+            <label for="modelSelect">Model:</label>
+            <select id="modelSelect" class="fancy-select" disabled>
+              <option value="">-- Select Model --</option>
+            </select>
+          </div>
+        </div>
+        <div class="car-animation-container">
+          <div class="car">
+            <div class="car-body">
+              <div class="car-top"></div>
+              <div class="car-bottom"></div>
+            </div>
+            <div class="wheel wheel-left"></div>
+            <div class="wheel wheel-right"></div>
+          </div>
+          <div class="road"></div>
+        </div>
+      </section>
+
+      <section class="action-section glass-morphism">
+        <h2>Export Your Data</h2>
+        <div class="button-container">
+          <button id="emailButton" class="btn btn-primary" disabled>
+            <i class="fas fa-envelope"></i> Export via Email
+            <span class="btn-effect"></span>
+          </button>
+          <button id="downloadButton" class="btn btn-secondary" disabled>
+            <i class="fas fa-download"></i> Download CSV
+            <span class="btn-effect"></span>
+          </button>
+        </div>
+      </section>
+
+      <section id="progressSection" class="progress-section glass-morphism hidden">
+        <h2>Export Progress</h2>
+        <div class="progress-container">
+          <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+            <div id="progressFill"></div>
+          </div>
+          <p id="progressText">0% Complete</p>
+          <p id="totalRecords">Total Records: 0</p>
+        </div>
+        <div id="loadingSpinner" class="spinner hidden"></div>
+      </section>
+
+      <section id="resultSection" class="result-section glass-morphism hidden">
+        <h2 id="resultTitle"></h2>
+        <p id="resultMessage"></p>
+        <div class="confetti-container"></div>
+      </section>
+    </main>
   </div>
 
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-  </script>
-  <script type="text/javascript">
-    (function () {
-      emailjs.init({
-        publicKey: "EevX8WfcudHu9GwPh",
-      });
-    })();
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="vehicles.js"></script>
 </body>
 
